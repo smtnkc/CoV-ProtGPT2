@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import random
 random.seed(42)
-names = ["Omicron", "New", "Eris"]
+names = ["Omicron"]
 
 # 1) Add <|endoftext|> at the begging of each sequence 
 # 2) Add a new line after each 60 characters (I ignored this part, it works better without it)
