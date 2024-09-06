@@ -12,7 +12,7 @@ prefix2 = "MFVFLVLLPLVSSQCVNLITRTQ" # 1528 out of 2000 starts with this prefix
 
 # length is expressed in tokens, where each token has an average length of 4 amino acids.
 begin = time.time()
-seq_dict = protgpt2(f"<|endoftext|>{prefix1}", min_length=300, max_length=500, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=90, eos_token_id=0)
+seq_dict = protgpt2(f"<|endoftext|>{prefix1}", min_length=360, max_length=450, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=50, eos_token_id=0)
 end = time.time()
 
 # Elapsed time in hh:mm:ss format
@@ -20,13 +20,16 @@ elapsed = end - begin
 print("Elapsed time: " + time.strftime('%H:%M:%S', time.gmtime(elapsed)))
 
 # Write generated sequences to a file
+total_len = 0
 counter = 0
 with open(f"generated_sequences_temp_{TEMP}.txt", "a") as f:
     for item in seq_dict:
             raw_seq = item['generated_text']
             clean_seq = raw_seq.replace("<|endoftext|>", "").replace("\n", "")
+            total_len += len(clean_seq)
             if len(clean_seq) > 1235 and len(clean_seq) < 1280:
                 counter += 1
                 f.write(clean_seq + "\n")
 
+print(f"Average length of sequences: {total_len/len(seq_dict)}")
 print(f"Number of sequences written to file: {counter}")

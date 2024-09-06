@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Takes one argument: TEMPERATURE
+
 for k in {1..30}
 do
     echo "Running iteration $k..."
